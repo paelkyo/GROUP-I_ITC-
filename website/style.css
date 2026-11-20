@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  color: #3b2b2b;
+  background-color: #ffffff;
+  line-height: 1.7;
+}
+
+/* ===== Navigation ===== */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: #fdf3e3;
+  border-bottom: 1px solid #5a1010;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: bold;
+  color: #5a1010;
+}
+
+.logo {
+  width: 65px;
+  height: 65px;
+}
+
+/* line between the logo and the name */
+.brand-name {
+  border-left: 2px solid #5a1010;
+  padding-left: 15px;
+}
+
+.menu a {
+  padding: 8px 22px;
+  color: #5a1010;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 50px;
+}
+
+.menu a:hover {
+  background-color: #f3dcc0;
+}
+
+/* the tab of the page you are on */
+.menu a.active {
+  background-color: #4a0d0d;
+  color: #ffffff;
+}
+
+/* ===== Hero ===== */
+.hero {
+  height: 90vh;
+  padding: 0 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  background-image: linear-gradient(to right, rgba(70, 15, 15, 0.85), transparent), url("images/campus.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h3 {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 28px;
+}
+
+.hero h1 {
+  font-size: 60px;
+}
+
+.hero p {
+  font-style: italic;
+  font-size: 22px;
+  margin: 10px 0 25px;
+}
+
+.hero a {
+  width: 180px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.hero a:hover {
+  background-color: #f2c04d;
+  color: black;
+}
+
+/* ===== Content ===== */
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #5a1010;
+  font-size: 30px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #5a1010;
+}
+
+/* mascot picture + paragraph */
+.box {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 20px;
+  background-color: #fdf3e3;
+}
+
+.mascot {
+  height: 200px;
+}
+
+/* campus picture */
+.campus {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* ===== College cards ===== */
+.colleges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  flex: 1 1 220px;
+  padding: 20px;
+  background-color: #fdf3e3;
+  border-top: 5px solid #5a1010;
+}
+
+.card h3 {
+  color: #5a1010;
+  font-size: 24px;
+}
+
+/* ===== Footer ===== */
+footer {
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #5a1010;
+  background-color: #fdf3e3;
+  border-top: 1px solid #5a1010;
+}
