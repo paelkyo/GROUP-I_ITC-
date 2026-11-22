@@ -1,630 +1,226 @@
-/* ===== 1. COLORS (change the colors here) ===== */
-body {
-  --nav-bg: #fdf3e3;      /* navbar background */
-  --text: #5a1010;        /* navbar text */
-  --pill: #4a0d0d;        /* moving tab color */
-  --pill-text: #ffffff;   /* text inside the moving tab */
-  --shade: rgba(70, 15, 15, 0.85);  /* dark layer over the hero */
-  --page-bg: #fff8ee;     /* page background */
-  --page-text: #333333;   /* paragraph text */
-  --heading: #5a1010;     /* headings */
-  --card-bg: #ffffff;     /* college cards */
-  --accent: #f2c04d;      /* gold highlight */
-  --scroll-progress: 0%;  /* updated via JS */
-  --hero-shift: 0px;      /* updated via JS */
-}
-
-/* Dark mode colors: used when the body has the class "dark" */
-body.dark {
-  --nav-bg: #1c1112;
-  --text: #f3dcc0;
-  --pill: #f2c04d;
-  --pill-text: #2a0a0a;
-  --shade: rgba(0, 0, 0, 0.8);
-  --page-bg: #150d0e;
-  --page-text: #e8d8c3;
-  --heading: #f2c04d;
-  --card-bg: #241617;
-}
-
-/* ===== 2. BASIC SETTINGS ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: Georgia, serif;
-  background: var(--page-bg);
-  color: var(--page-text);
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-/* ===== KEYFRAME ANIMATIONS ===== */
-@keyframes heroFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(26px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pageFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.5) rotate(-18deg);
-  }
-  70% {
-    transform: scale(1.15) rotate(6deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-/* Scroll reveal helper */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===== 3. NAVBAR ===== */
-nav {
-  display: flex;
-  justify-content: space-between;   /* logo left, links right */
-  align-items: center;
-  padding: 10px 40px;
-  background: var(--nav-bg);
-  color: var(--text);
-  border-bottom: 1px solid #5a1010;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease;
-}
-
-nav.scrolled {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-}
-
-/* Scroll progress indicator bar */
-.scroll-progress {
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  height: 3px;
-  width: var(--scroll-progress);
-  background: linear-gradient(90deg, #5a1010, var(--accent));
-  transition: width 0.08s linear;
-  pointer-events: none;
-}
-
-body.dark .scroll-progress {
-  background: linear-gradient(90deg, #f2c04d, #fff3cc);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* Logo */
-.logo {
-  width: 65px;
-  height: 65px;
-  object-fit: contain;   /* shows the whole logo without cropping */
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.4s ease;
-}
-
-.brand:hover .logo {
-  transform: scale(1.07) rotate(-4deg);
-}
-
-/* Dark mode: light circle exactly behind the logo (no extra padding, so no double ring) */
-body.dark .logo {
-  background: #fdf3e3;
-  border-radius: 50%;
-}
-
-/* line between the logo and the name (uses the text color, so it shows in both modes) */
-.brand-name {
-  border-left: 2px solid var(--text);
-  padding-left: 15px;
-  transition: border-color 0.4s ease;
-}
-
-.menu {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* ===== 4. MOVING TAB ===== */
-.tabs {
-  position: relative;       /* so the pill can move inside this box */
-  display: flex;
-}
-
-.tabs a {
-  position: relative;
-  z-index: 1;               /* keeps the text above the pill */
-  padding: 8px 22px;
-  color: var(--text);
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.25s ease, transform 0.2s ease;
-}
-
-.tabs a:hover:not(.active) {
-  transform: translateY(-2px);
-}
-
-.tabs a.active {
-  color: var(--pill-text);
-}
-
-.pill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
-  background: var(--pill);
-  border-radius: 50px;
-  transition: left 0.42s cubic-bezier(0.34, 1.38, 0.64, 1),
-              width 0.42s cubic-bezier(0.34, 1.38, 0.64, 1),
-              background-color 0.4s ease;
-}
-
-/* ===== 5. DARK / LIGHT BUTTON ===== */
-#theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: none;
-  border: 2px solid var(--text);
-  color: var(--text);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              background-color 0.25s ease,
-              color 0.25s ease,
-              border-color 0.4s ease;
-}
-
-#theme-toggle:hover {
-  transform: rotate(24deg) scale(1.08);
-  background: rgba(90, 16, 16, 0.08);
-}
-
-body.dark #theme-toggle:hover {
-  background: rgba(242, 192, 77, 0.14);
-}
-
-#theme-toggle:active {
-  transform: scale(0.9);
-}
-
-#theme-toggle svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* light mode: show the moon, hide the sun */
-.sun { display: none; }
-
-/* dark mode: show the sun, hide the moon */
-body.dark .sun { display: block; }
-body.dark .moon { display: none; }
-
-/* ===== 6. HERO (big welcome section) ===== */
-.hero {
-  position: relative;
-  height: 90vh;
-  padding: 0 8%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-  overflow: hidden;
-
-  background:
-    linear-gradient(to right, var(--shade), transparent),
-    url("campus.png");
-  background-size: cover;
-  background-position: center calc(50% + var(--hero-shift));
-}
-
-/* Staggered entrance when a page becomes visible */
-.page.show .hero h3 {
-  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
-}
-
-.page.show .hero h1 {
-  animation: heroFadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-}
-
-.page.show .hero p {
-  animation: heroFadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
-}
-
-.page.show .hero > a {
-  animation: heroFadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.44s both;
-}
-
-.hero h3 {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 28px;
-}
-
-.hero h1 {
-  font-size: 60px;
-  max-width: 500px;
-}
-
-.hero p {
-  font-style: italic;
-  font-size: 22px;
-  margin: 10px 0 25px;
-}
-
-.hero a {
-  position: relative;
-  overflow: hidden;
-  width: 180px;
-  padding: 10px;
-  text-align: center;
-  color: white;
-  border: 1px solid white;
-  border-radius: 50px;
-  text-decoration: none;
-  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-}
-
-/* Shine sweep across hero CTA */
-.hero a::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 80%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-  transition: left 0.55s ease;
-  pointer-events: none;
-}
-
-.hero a:hover::after {
-  left: 140%;
-}
-
-.hero a:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: black;
-  transform: translateY(-3px);
-}
-
-.hero a:active {
-  transform: translateY(0) scale(0.97);
-}
-
-.bottom-text {
-  position: absolute;
-  bottom: 25px;
-  right: 30px;
-  font-size: 19px;
-  font-style: italic;
-  z-index: 2;
-}
-
-/* ===== 7. PAGES (Home / Academics / Contact) ===== */
-.page { display: none; }          /* every page is hidden... */
-.page.show {
-  display: block;
-  animation: pageFadeIn 0.45s ease-out;
-}
-
-/* ===== 8. ACADEMICS CONTENT ===== */
-main {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 50px 20px;
-}
-
-main section {
-  margin-bottom: 45px;
-}
-
-main h2 {
-  color: var(--heading);
-  font-size: 32px;
-  margin-bottom: 12px;
-  transition: color 0.4s ease;
-}
-
-main p {
-  line-height: 1.7;
-}
-
-/* mascot picture + text side by side */
-.box {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-.media-frame {
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
-}
-
-.mascot-frame {
-  flex-shrink: 0;
-  width: 220px;
-  animation: floatSlow 4.5s ease-in-out infinite;
-}
-
-.mascot {
-  display: block;
-  width: 100%;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.mascot-frame:hover .mascot {
-  transform: scale(1.08);
-}
-
-.campus-frame {
-  margin: 10px 0 15px;
-}
-
-.campus {
-  display: block;
-  width: 100%;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.campus-frame:hover .campus {
-  transform: scale(1.03);
-}
-
-/* the 4 college cards */
-.colleges {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  position: relative;
-  overflow: hidden;
-  background: var(--card-bg);
-  padding: 22px;
-  border-radius: 12px;
-  border-top: 4px solid var(--accent);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.35s ease,
-              background-color 0.4s ease;
-}
-
-/* Expanding top accent line on hover */
-.card::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 0;
-  width: 0;
-  height: 4px;
-  background: var(--heading);
-  transition: width 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
-}
-
-.card:hover::before {
-  width: 100%;
-}
-
-.card h3 {
-  color: var(--heading);
-  font-size: 24px;
-  margin-bottom: 10px;
-  transition: color 0.4s ease, transform 0.3s ease;
-}
-
-.card:hover h3 {
-  transform: translateX(3px);
-}
-
-/* ===== 8.5. CONTACT PAGE ===== */
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.contact-form label {
-  font-weight: bold;
-  font-size: 14px;
-  color: var(--heading);
-  margin-top: 4px;
-}
-
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #b89f8d;
-  border-radius: 8px;
-  font-family: Georgia, serif;
-  font-size: 15px;
-  background: var(--page-bg);
-  color: var(--page-text);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease, background-color 0.4s ease, color 0.4s ease;
-}
-
-.contact-form input:focus,
-.contact-form select:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: var(--heading);
-  box-shadow: 0 0 0 3px rgba(242, 192, 77, 0.3);
-  transform: translateY(-1px);
-}
-
-.submit-btn {
-  position: relative;
-  overflow: hidden;
-  margin-top: 10px;
-  padding: 12px 24px;
-  background: var(--pill);
-  color: var(--pill-text);
-  border: none;
-  border-radius: 50px;
-  font-family: Georgia, serif;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.25s ease,
-              opacity 0.25s ease,
-              background-color 0.4s ease;
-}
-
-.submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-}
-
-.submit-btn:active {
-  transform: translateY(0) scale(0.97);
-}
-
-/* Inline submission banner */
-.form-status {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  margin-top: 8px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  background: rgba(242, 192, 77, 0.18);
-  border-left: 4px solid var(--accent);
-  color: var(--page-text);
-  font-size: 14px;
-  animation: pageFadeIn 0.35s ease-out;
-}
-
-.form-status.show {
-  display: flex;
-}
-
-.check-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #2a0a0a;
-  font-weight: bold;
-  font-size: 13px;
-  flex-shrink: 0;
-  animation: popIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.map-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.map-card iframe {
-  width: 100%;
-  flex: 1;
-  min-height: 320px;
-  border: none;
-  border-radius: 8px;
-}
-
-/* ===== 9. FOOTER ===== */
-footer {
-  background: #4a0d0d;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  font-size: 14px;
-}
-
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
-}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Batangas State University</title>
+
+  <link rel="stylesheet" href="academic.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="brand">
+      <img src="logo.png" class="logo" alt="BatStateU logo">
+      <div class="brand-name">BATANGAS STATE<br>UNIVERSITY - ALANGILAN CAMPUS</div>
+    </div>
+
+    <div class="menu">
+      <div class="tabs">
+        <span class="pill"></span>
+        <a href="#" class="active" data-page="home">Home</a>
+        <a href="#" data-page="academics">Academics</a>
+        <a href="#" data-page="contact">Contact</a>
+      </div>
+
+      <button id="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"></path></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </nav>
+
+  <!-- PAGE 1: HOME -->
+  <div id="home" class="page show">
+    <!-- HERO -->
+    <section class="hero">
+      <h3>Welcome to</h3>
+      <h1>Batangas State University</h1>
+      <p>The National Engineering University</p>
+      <a href="#" id="explore-btn">Explore more →</a>
+
+      <p class="bottom-text">
+        Leading Innovation, Transforming Lives, Building the Nation.
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2026 BATANGAS STATE UNIVERSITY, The National Engineering University All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <!-- PAGE 2: ACADEMICS -->
+  <div id="academics" class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h3>Batangas State University</h3>
+      <h1>Academics</h1>
+      <p>The National Engineering University</p>
+      <a href="#colleges">Explore more →</a>
+    </section>
+
+    <!-- CONTENT -->
+    <main>
+
+      <section>
+        <h2>University Vision</h2>
+        <p>A premier national university that develops leaders in the global knowledge economy.</p>
+      </section>
+
+      <section>
+        <h2>University Mission</h2>
+        <p>A university committed to producing leaders by providing a 21st century learning environment through innovations in education, multidisciplinary research, and community and industry partnerships in order to nurture the spirit of nationhood, propel the national economy, and engage the world for sustainable development.</p>
+      </section>
+
+      <section class="box">
+        <div class="media-frame mascot-frame">
+          <img src="symbolism.jpg" alt="The Red Spartans mascot" class="mascot">
+        </div>
+        <p>The Red Spartans is the official mascot of the university. It was launched on 23 September 2014 during the 111th Foundation Anniversary of the institution. Designed by John Jeffrey Alcantara, a Fine Arts major of the university, it was officially registered at the Intellectual Property Office of the Philippines on 15 April 2016 with Certificate of Registration No. 4/2014/00013631.</p>
+      </section>
+
+      <section>
+        <h2>Campus</h2>
+        <div class="media-frame campus-frame">
+          <img src="campus-gate.jpg" alt="Batangas State University main gate" class="campus">
+        </div>
+        <p>Embodying the university campus of the future, BatStateU-Alangilan boasts a 5.62-hectare campus with a rich history of excellence in engineering and technology education, which has produced around 200 topnotchers in engineering and is a consistent top-performing school in mechanical engineering over the years. It is home to over 17,000 students under the College of Engineering, College of Architecture, Fine Arts and Design, College of Engineering Technology, and College of Informatics and Computing Sciences.</p>
+      </section>
+
+      <section id="colleges" class="colleges">
+
+        <div class="card">
+          <h3>COE</h3>
+          <p>The College of Engineering at Batangas State University, The National Engineering University (BatStateU The NEU), is a recognized leader in engineering education, known for producing topnotchers and globally competitive graduates. With a strong foundation in innovation, sustainability, and nation-building, the college fully implements outcomes-based education and integrates technopreneurship into its curricula to equip students with 21st-century skills.</p>
+        </div>
+
+        <div class="card">
+          <h3>CAFAD</h3>
+          <p>The College of Engineering, Architecture and Fine Arts is the premier college that offers the flagship programs of the university. It is a pioneer in the full implementation of outcomes-based teaching and learning and the integration of Technopreneurship in its curricula, with three centers of excellence and development and a number of graduates topping national licensure and certification examinations.</p>
+        </div>
+
+        <div class="card">
+          <h3>CET</h3>
+          <p>The College of Engineering Technology is the first college established in the university, and has since proven to be a premier producer of well-rounded and globally competitive professionals who meet local, national, and international demands for skilled workers who significantly contribute to the manpower resources in response to the rapid industrialization of the modern world.</p>
+        </div>
+
+        <div class="card">
+          <h3>CICS</h3>
+          <p>The College of Informatics and Computing Sciences offers ITE graduate and undergraduate programs, facilitated by highly competent faculty members catering to over 2,000 Information Technology and Computer Science students. The college focuses on the technical aspects and real-world applications of artificial intelligence, machine learning, deep learning, and security.</p>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 BATANGAS STATE UNIVERSITY, The National Engineering University All Rights Reserved.</p>
+    </footer>
+
+  </div>
+
+  <!-- PAGE 3: CONTACT -->
+  <div id="contact" class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h3>Get in Touch</h3>
+      <h1>Contact Us</h1>
+      <p>Batangas State University - Alangilan Campus</p>
+      <a href="#contact-info">Reach out →</a>
+    </section>
+
+    <!-- CONTENT -->
+    <main id="contact-info">
+
+      <section>
+        <h2>Campus Directory & Location</h2>
+        <p>Have questions about admissions, programs, or campus services? Reach out to our offices at the Alangilan Campus or send us a message below.</p>
+      </section>
+
+      <!-- CONTACT CARDS -->
+      <section class="colleges">
+
+        <div class="card">
+          <h3>Campus Address</h3>
+          <p>Golden Country Homes, Brgy. Alangilan,<br>Batangas City, Batangas 4200,<br>Philippines</p>
+        </div>
+
+        <div class="card">
+          <h3>Trunkline & Telephone</h3>
+          <p><strong>Main Trunkline:</strong><br>(043) 425-0139 / (043) 425-0143</p>
+          <p style="margin-top: 8px;"><strong>Office Hours:</strong><br>Mon – Fri, 8:00 AM – 5:00 PM</p>
+        </div>
+
+        <div class="card">
+          <h3>Official Email</h3>
+          <p><strong>General Inquiries:</strong><br>alangilan@g.batstate-u.edu.ph</p>
+          <p style="margin-top: 8px;"><strong>Admissions / TAO:</strong><br>tao.alangilan@g.batstate-u.edu.ph</p>
+        </div>
+
+      </section>
+
+      <!-- MESSAGE FORM + MAP -->
+      <section class="contact-grid">
+
+        <div class="card">
+          <h3>Send a Message</h3>
+          <form class="contact-form" id="contact-form">
+            <label for="sender-name">Full Name</label>
+            <input type="text" id="sender-name" placeholder="e.g. Juan Dela Cruz" required>
+
+            <label for="sender-email">Email Address</label>
+            <input type="email" id="sender-email" placeholder="e.g. juan@email.com" required>
+
+            <label for="sender-office">Department / Office</label>
+            <select id="sender-office">
+              <option value="general">General Inquiry</option>
+              <option value="admissions">Testing and Admission Office (TAO)</option>
+              <option value="registrar">Office of the Registrar</option>
+              <option value="coe">College of Engineering (COE)</option>
+              <option value="cafad">College of Architecture, Fine Arts & Design (CAFAD)</option>
+              <option value="cet">College of Engineering Technology (CET)</option>
+              <option value="cics">College of Informatics and Computing Sciences (CICS)</option>
+            </select>
+
+            <label for="sender-msg">Message</label>
+            <textarea id="sender-msg" rows="4" placeholder="Write your inquiry here..." required></textarea>
+
+            <button type="submit" class="submit-btn">Send Message</button>
+
+            <div class="form-status" id="form-status" role="status" aria-live="polite">
+              <span class="check-badge">✓</span>
+              <span>Thank you! Your message has been sent to BatStateU Alangilan.</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="card map-card">
+          <h3>Campus Map</h3>
+          <iframe
+            title="BatStateU Alangilan Map"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=121.0715%2C13.7815%2C121.0775%2C13.7865&layer=mapnik&marker=13.7840%2C121.0745"
+            loading="lazy">
+          </iframe>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 BATANGAS STATE UNIVERSITY, The National Engineering University All Rights Reserved.</p>
+    </footer>
+
+  </div>
+
+  <script src="academic.js"></script>
+
+</body>
+</html>
