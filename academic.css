@@ -1,0 +1,260 @@
+/* ===== 1. COLORS (change the colors here) ===== */
+body {
+  --nav-bg: #fdf3e3;      /* navbar background */
+  --text: #5a1010;        /* navbar text */
+  --pill: #4a0d0d;        /* moving tab color */
+  --pill-text: #ffffff;   /* text inside the moving tab */
+  --shade: rgba(70, 15, 15, 0.85);  /* dark layer over the hero */
+  --page-bg: #fff8ee;     /* page background */
+  --page-text: #333333;   /* paragraph text */
+  --heading: #5a1010;     /* headings */
+  --card-bg: #ffffff;     /* college cards */
+}
+
+/* Dark mode colors: used when the body has the class "dark" */
+body.dark {
+  --nav-bg: #1c1112;
+  --text: #f3dcc0;
+  --pill: #f2c04d;
+  --pill-text: #2a0a0a;
+  --shade: rgba(0, 0, 0, 0.8);
+  --page-bg: #150d0e;
+  --page-text: #e8d8c3;
+  --heading: #f2c04d;
+  --card-bg: #241617;
+}
+
+/* ===== 2. BASIC SETTINGS ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  background: var(--page-bg);
+  color: var(--page-text);
+}
+
+/* ===== 3. NAVBAR ===== */
+nav {
+  display: flex;
+  justify-content: space-between;   /* logo left, links right */
+  align-items: center;
+  padding: 10px 40px;
+  background: var(--nav-bg);
+  color: var(--text);
+  border-bottom: 1px solid #5a1010;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Logo */
+.logo {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;   /* shows the whole logo without cropping */
+}
+
+/* Dark mode: light circle exactly behind the logo (no extra padding, so no double ring) */
+body.dark .logo {
+  background: #fdf3e3;
+  border-radius: 50%;
+}
+
+/* line between the logo and the name (uses the text color, so it shows in both modes) */
+.brand-name {
+  border-left: 2px solid var(--text);
+  padding-left: 15px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ===== 4. MOVING TAB ===== */
+.tabs {
+  position: relative;       /* so the pill can move inside this box */
+  display: flex;
+}
+
+.tabs a {
+  position: relative;
+  z-index: 1;               /* keeps the text above the pill */
+  padding: 8px 22px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.tabs a.active {
+  color: var(--pill-text);
+}
+
+.pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: var(--pill);
+  border-radius: 50px;
+  transition: 0.4s;         /* this makes it slide smoothly */
+}
+
+/* ===== 5. DARK / LIGHT BUTTON ===== */
+#theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 2px solid var(--text);
+  color: var(--text);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* light mode: show the moon, hide the sun */
+.sun { display: none; }
+
+/* dark mode: show the sun, hide the moon */
+body.dark .sun { display: block; }
+body.dark .moon { display: none; }
+
+/* ===== 6. HERO (big welcome section) ===== */
+.hero {
+  height: 90vh;
+  padding: 0 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+
+  background:
+    linear-gradient(to right, var(--shade), transparent),
+    url("campus.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h3 {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 28px;
+}
+
+.hero h1 {
+  font-size: 60px;
+  max-width: 500px;
+}
+
+.hero p {
+  font-style: italic;
+  font-size: 22px;
+  margin: 10px 0 25px;
+}
+
+.hero a {
+  width: 180px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.hero a:hover {
+  background: #f2c04d;
+  color: black;
+}
+
+
+/* ===== 7. PAGES (Home / Academics) ===== */
+.page { display: none; }          /* every page is hidden... */
+.page.show { display: block; }    /* ...except the one with the class "show" */
+
+/* ===== 8. ACADEMICS CONTENT ===== */
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+main section {
+  margin-bottom: 45px;
+}
+
+main h2 {
+  color: var(--heading);
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+main p {
+  line-height: 1.7;
+}
+
+/* mascot picture + text side by side */
+.box {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.mascot {
+  width: 220px;
+  border-radius: 10px;
+}
+
+.campus {
+  width: 100%;
+  border-radius: 10px;
+  margin: 10px 0 15px;
+}
+
+/* the 4 college cards */
+.colleges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 22px;
+  border-radius: 12px;
+  border-top: 4px solid #f2c04d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+  color: var(--heading);
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* ===== 9. FOOTER ===== */
+footer {
+  background: #4a0d0d;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
