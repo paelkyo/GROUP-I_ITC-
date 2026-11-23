@@ -15,7 +15,7 @@
   <nav>
     <div class="brand">
       <div class="logo-wrap">
-        <img src="logo.jpg" class="logo" alt="Batangas State University logo">
+        <img src="logo.png" class="logo" alt="Batangas State University logo">
       </div>
       <div class="brand-name">BATANGAS STATE<br>UNIVERSITY - ALANGILAN</div>
     </div>
@@ -39,7 +39,7 @@
 
   <!-- PAGE 1: HOME -->
   <div id="home" class="page show">
-    <section class="hero">
+    <section class="hero photo-hero">
       <div class="embers" aria-hidden="true">
         <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
@@ -60,14 +60,33 @@
 
   <!-- PAGE 2: ACADEMICS -->
   <div id="academics" class="page">
-    <section class="hero">
+    <section class="hero video-hero" id="academics-hero">
+      <!-- Base image shown first -->
+      <div class="hero-still" aria-hidden="true"></div>
+
+      <!-- Video layer revealed right-to-left -->
+      <div class="hero-video-wrap" id="academics-video-wrap" aria-hidden="true">
+        <video id="academics-video" muted loop playsinline preload="auto">
+          <source src="video.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Moving white wipe line (right to left) -->
+      <div class="wipe-line" id="academics-wipe-line" aria-hidden="true"></div>
+
+      <!-- Readability shade + sparks -->
+      <div class="hero-scrim" aria-hidden="true"></div>
       <div class="embers" aria-hidden="true">
         <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
+
       <h3>Batangas State University</h3>
       <h1>Academics</h1>
       <p>The National Engineering University</p>
-      <a href="#colleges">Explore more →</a>
+      <div class="hero-actions">
+        <a href="#colleges">Explore more →</a>
+        <button type="button" class="replay-wipe-btn" id="replay-wipe-btn">Replay Transition ↺</button>
+      </div>
     </section>
 
     <main>
@@ -126,7 +145,7 @@
 
   <!-- PAGE 3: CONTACT -->
   <div id="contact" class="page">
-    <section class="hero">
+    <section class="hero photo-hero">
       <div class="embers" aria-hidden="true">
         <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
@@ -210,6 +229,6 @@
     </footer>
   </div>
 
-  <script src="ani.js"></script>
+  <script src="academic.js"></script>
 </body>
 </html>
