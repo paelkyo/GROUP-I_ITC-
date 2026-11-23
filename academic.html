@@ -3,63 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Batangas State University</title>
-
+  <title>Batangas State University - Alangilan</title>
   <link rel="stylesheet" href="academic.css">
 </head>
-
 <body>
 
-  <!-- Pure HTML/CSS state controls (replaces JavaScript) -->
-  <input type="radio" name="page-nav" id="nav-home" class="state-input" checked>
-  <input type="radio" name="page-nav" id="nav-academics" class="state-input">
-  <input type="radio" name="page-nav" id="nav-contact" class="state-input">
-  <input type="checkbox" id="theme-check" class="state-input" aria-label="Toggle dark mode">
-  <input type="checkbox" id="replay-wipe-check" class="state-input">
+  <!-- Radio buttons switch pages; checkbox toggles dark mode (pure HTML/CSS) -->
+  <input type="radio" name="page" id="nav-home" class="hidden-input" checked>
+  <input type="radio" name="page" id="nav-academics" class="hidden-input">
+  <input type="radio" name="page" id="nav-contact" class="hidden-input">
+  <input type="checkbox" id="theme-toggle" class="hidden-input">
 
-  <div class="site-wrapper">
+  <div class="site">
 
-    <!-- Page transition wipe -->
-    <div class="page-curtain" aria-hidden="true"></div>
-
-    <!-- NAVBAR -->
-    <nav>
+    <!-- TOP NAVIGATION BAR -->
+    <header class="navbar">
       <div class="brand">
-        <img src="logo.png" class="logo" alt="BatStateU logo">
-        <div class="brand-name">BATANGAS STATE<br>UNIVERSITY - ALANGILAN CAMPUS</div>
+        <img src="logo.png" alt="BatStateU Logo" class="logo">
+        <div class="brand-text">
+          BATANGAS STATE<br>UNIVERSITY - ALANGILAN CAMPUS
+        </div>
       </div>
 
-      <div class="menu">
+      <nav class="nav-actions">
         <div class="tabs">
-          <span class="pill" aria-hidden="true"></span>
           <label for="nav-home" class="tab-home">Home</label>
           <label for="nav-academics" class="tab-academics">Academics</label>
           <label for="nav-contact" class="tab-contact">Contact</label>
         </div>
 
-        <label for="theme-check" id="theme-toggle" aria-label="Switch dark or light mode">
-          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"></path></svg>
-          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        </label>
-      </div>
-
-      <div class="scroll-progress" aria-hidden="true"></div>
-    </nav>
+        <label for="theme-toggle" class="moon-btn" title="Switch Light/Dark Mode">☾</label>
+      </nav>
+    </header>
 
     <!-- PAGE 1: HOME -->
     <div id="home" class="page">
-      <section class="hero photo-hero">
-        <div class="embers" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <section class="hero" style="background-image: url('campus.png');">
+        <div class="hero-shade">
+          <div class="hero-animate">
+            <p class="hero-welcome">Welcome to</p>
+            <h1>Batangas State<br>University</h1>
+            <p class="hero-sub">The National Engineering University</p>
+            <label for="nav-academics" class="outline-btn">Explore more →</label>
+          </div>
+          <p class="bottom-tagline">Leading Innovation, Transforming Lives, Building the Nation.</p>
         </div>
-        <h3>Welcome to</h3>
-        <h1>Batangas State University</h1>
-        <p>The National Engineering University</p>
-        <label for="nav-academics" class="hero-cta">Explore more →</label>
-
-        <p class="bottom-text">
-          Leading Innovation, Transforming Lives, Building the Nation.
-        </p>
       </section>
 
       <footer>
@@ -69,138 +57,119 @@
 
     <!-- PAGE 2: ACADEMICS -->
     <div id="academics" class="page">
-
-      <!-- HERO (Image first, then right-to-left white wipe into video.mp4) -->
-      <section class="hero video-hero">
-        <div class="hero-still" aria-hidden="true"></div>
-
-        <div class="hero-video-wrap" aria-hidden="true">
-          <video muted loop playsinline autoplay preload="auto">
-            <source src="video.mp4" type="video/mp4">
-          </video>
-        </div>
-
-        <div class="wipe-line" aria-hidden="true"></div>
-        <div class="hero-scrim" aria-hidden="true"></div>
-
-        <div class="embers" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-
-        <h3>Batangas State University</h3>
-        <h1>Academics</h1>
-        <p>The National Engineering University</p>
-        <div class="hero-actions">
-          <a href="#colleges">Explore more →</a>
-          <label for="replay-wipe-check" class="replay-wipe-btn">Replay Transition ↺</label>
+      <section class="hero hero-short video-banner">
+        <video class="hero-video" autoplay muted loop playsinline>
+          <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-shade">
+          <div class="hero-animate">
+            <p class="hero-welcome">Batangas State University</p>
+            <h1>Academics</h1>
+            <p class="hero-sub">The National Engineering University</p>
+            <a href="#colleges" class="outline-btn">Explore colleges →</a>
+          </div>
         </div>
       </section>
 
-      <!-- CONTENT -->
-      <main>
-
-        <section class="reveal-block">
+      <main class="content">
+        <section class="panel">
           <h2>University Vision</h2>
           <p>A premier national university that develops leaders in the global knowledge economy.</p>
         </section>
 
-        <section class="reveal-block">
+        <section class="panel">
           <h2>University Mission</h2>
           <p>A university committed to producing leaders by providing a 21st century learning environment through innovations in education, multidisciplinary research, and community and industry partnerships in order to nurture the spirit of nationhood, propel the national economy, and engage the world for sustainable development.</p>
         </section>
 
-        <section class="box reveal-block">
-          <div class="media-frame mascot-frame">
-            <img src="symbolism.jpg" alt="The Red Spartans mascot" class="mascot">
+        <section class="panel mascot-row">
+          <img src="symbolism.jpg" alt="The Red Spartans mascot" class="mascot-img floating-img">
+          <div>
+            <h2>The Red Spartans</h2>
+            <p>The Red Spartans is the official mascot of the university. It was launched on 23 September 2014 during the 111th Foundation Anniversary of the institution. Designed by John Jeffrey Alcantara, a Fine Arts major of the university, it was officially registered at the Intellectual Property Office of the Philippines on 15 April 2016 with Certificate of Registration No. 4/2014/00013631.</p>
           </div>
-          <p>The Red Spartans is the official mascot of the university. It was launched on 23 September 2014 during the 111th Foundation Anniversary of the institution. Designed by John Jeffrey Alcantara, a Fine Arts major of the university, it was officially registered at the Intellectual Property Office of the Philippines on 15 April 2016 with Certificate of Registration No. 4/2014/00013631.</p>
         </section>
 
-        <section class="reveal-block">
+        <section class="panel">
           <h2>Campus</h2>
-          <div class="media-frame campus-frame">
-            <img src="campus-gate.jpg" alt="Batangas State University main gate" class="campus">
+          <div class="photo-box">
+            <img src="campus-gate.jpg" alt="Batangas State University main gate" class="campus-img zoom-img">
           </div>
           <p>Embodying the university campus of the future, BatStateU-Alangilan boasts a 5.62-hectare campus with a rich history of excellence in engineering and technology education, which has produced around 200 topnotchers in engineering and is a consistent top-performing school in mechanical engineering over the years. It is home to over 17,000 students under the College of Engineering, College of Architecture, Fine Arts and Design, College of Engineering Technology, and College of Informatics and Computing Sciences.</p>
         </section>
 
-        <section id="colleges" class="colleges">
+        <section id="colleges">
+          <h2 class="section-title">Colleges</h2>
+          <div class="cards">
+            <div class="card">
+              <h3>COE</h3>
+              <p>The College of Engineering at Batangas State University, The National Engineering University (BatStateU The NEU), is a recognized leader in engineering education, known for producing topnotchers and globally competitive graduates. With a strong foundation in innovation, sustainability, and nation-building, the college fully implements outcomes-based education and integrates technopreneurship into its curricula to equip students with 21st-century skills.</p>
+            </div>
 
-          <div class="card tilt-card">
-            <h3>COE</h3>
-            <p>The College of Engineering at Batangas State University, The National Engineering University (BatStateU The NEU), is a recognized leader in engineering education, known for producing topnotchers and globally competitive graduates. With a strong foundation in innovation, sustainability, and nation-building, the college fully implements outcomes-based education and integrates technopreneurship into its curricula to equip students with 21st-century skills.</p>
+            <div class="card">
+              <h3>CAFAD</h3>
+              <p>The College of Architecture, Fine Arts and Design is the premier college that offers the flagship programs of the university. It is a pioneer in the full implementation of outcomes-based teaching and learning and the integration of Technopreneurship in its curricula, with three centers of excellence and development and a number of graduates topping national licensure and certification examinations.</p>
+            </div>
+
+            <div class="card">
+              <h3>CET</h3>
+              <p>The College of Engineering Technology is the first college established in the university, and has since proven to be a premier producer of well-rounded and globally competitive professionals who meet local, national, and international demands for skilled workers who significantly contribute to the manpower resources in response to the rapid industrialization of the modern world.</p>
+            </div>
+
+            <div class="card">
+              <h3>CICS</h3>
+              <p>The College of Informatics and Computing Sciences offers ITE graduate and undergraduate programs, facilitated by highly competent faculty members catering to over 2,000 Information Technology and Computer Science students. The college focuses on the technical aspects and real-world applications of artificial intelligence, machine learning, deep learning, and security.</p>
+            </div>
           </div>
-
-          <div class="card tilt-card">
-            <h3>CAFAD</h3>
-            <p>The College of Architecture, Fine Arts and Design is the premier college that offers the flagship programs of the university. It is a pioneer in the full implementation of outcomes-based teaching and learning and the integration of Technopreneurship in its curricula, with three centers of excellence and development and a number of graduates topping national licensure and certification examinations.</p>
-          </div>
-
-          <div class="card tilt-card">
-            <h3>CET</h3>
-            <p>The College of Engineering Technology is the first college established in the university, and has since proven to be a premier producer of well-rounded and globally competitive professionals who meet local, national, and international demands for skilled workers who significantly contribute to the manpower resources in response to the rapid industrialization of the modern world.</p>
-          </div>
-
-          <div class="card tilt-card">
-            <h3>CICS</h3>
-            <p>The College of Informatics and Computing Sciences offers ITE graduate and undergraduate programs, facilitated by highly competent faculty members catering to over 2,000 Information Technology and Computer Science students. The college focuses on the technical aspects and real-world applications of artificial intelligence, machine learning, deep learning, and security.</p>
-          </div>
-
         </section>
-
       </main>
 
       <footer>
         <p>© 2026 BATANGAS STATE UNIVERSITY, The National Engineering University All Rights Reserved.</p>
       </footer>
-
     </div>
 
     <!-- PAGE 3: CONTACT -->
     <div id="contact" class="page">
-
-      <section class="hero photo-hero">
-        <div class="embers" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <section class="hero hero-short" style="background-image: url('campus.png');">
+        <div class="hero-shade">
+          <div class="hero-animate">
+            <p class="hero-welcome">Get in Touch</p>
+            <h1>Contact Us</h1>
+            <p class="hero-sub">Batangas State University - Alangilan Campus</p>
+            <a href="#contact-info" class="outline-btn">Reach out →</a>
+          </div>
         </div>
-        <h3>Get in Touch</h3>
-        <h1>Contact Us</h1>
-        <p>Batangas State University - Alangilan Campus</p>
-        <a href="#contact-info">Reach out →</a>
       </section>
 
-      <main id="contact-info">
-
-        <section class="reveal-block">
+      <main id="contact-info" class="content">
+        <section class="panel">
           <h2>Campus Directory & Location</h2>
           <p>Have questions about admissions, programs, or campus services? Reach out to our offices at the Alangilan Campus or send us a message below.</p>
         </section>
 
-        <section class="colleges">
-
-          <div class="card tilt-card">
+        <section class="cards">
+          <div class="card">
             <h3>Campus Address</h3>
             <p>Golden Country Homes, Brgy. Alangilan,<br>Batangas City, Batangas 4200,<br>Philippines</p>
           </div>
 
-          <div class="card tilt-card">
+          <div class="card">
             <h3>Trunkline & Telephone</h3>
             <p><strong>Main Trunkline:</strong><br>(043) 425-0139 / (043) 425-0143</p>
-            <p style="margin-top: 8px;"><strong>Office Hours:</strong><br>Mon – Fri, 8:00 AM – 5:00 PM</p>
+            <p class="small-gap"><strong>Office Hours:</strong><br>Mon – Fri, 8:00 AM – 5:00 PM</p>
           </div>
 
-          <div class="card tilt-card">
+          <div class="card">
             <h3>Official Email</h3>
             <p><strong>General Inquiries:</strong><br>alangilan@g.batstate-u.edu.ph</p>
-            <p style="margin-top: 8px;"><strong>Admissions / TAO:</strong><br>tao.alangilan@g.batstate-u.edu.ph</p>
+            <p class="small-gap"><strong>Admissions / TAO:</strong><br>tao.alangilan@g.batstate-u.edu.ph</p>
           </div>
-
         </section>
 
         <section class="contact-grid">
-
-          <div class="card tilt-card">
-            <h3>Send a Message</h3>
+          <div class="panel">
+            <h2>Send a Message</h2>
             <form class="contact-form">
               <label for="sender-name">Full Name</label>
               <input type="text" id="sender-name" placeholder="e.g. Juan Dela Cruz" required>
@@ -210,13 +179,13 @@
 
               <label for="sender-office">Department / Office</label>
               <select id="sender-office">
-                <option value="general">General Inquiry</option>
-                <option value="admissions">Testing and Admission Office (TAO)</option>
-                <option value="registrar">Office of the Registrar</option>
-                <option value="coe">College of Engineering (COE)</option>
-                <option value="cafad">College of Architecture, Fine Arts & Design (CAFAD)</option>
-                <option value="cet">College of Engineering Technology (CET)</option>
-                <option value="cics">College of Informatics and Computing Sciences (CICS)</option>
+                <option>General Inquiry</option>
+                <option>Testing and Admission Office (TAO)</option>
+                <option>Office of the Registrar</option>
+                <option>College of Engineering (COE)</option>
+                <option>College of Architecture, Fine Arts & Design (CAFAD)</option>
+                <option>College of Engineering Technology (CET)</option>
+                <option>College of Informatics and Computing Sciences (CICS)</option>
               </select>
 
               <label for="sender-msg">Message</label>
@@ -226,23 +195,20 @@
             </form>
           </div>
 
-          <div class="card tilt-card map-card">
-            <h3>Campus Map</h3>
+          <div class="panel map-panel">
+            <h2>Campus Map</h2>
             <iframe
               title="BatStateU Alangilan Map"
               src="https://www.openstreetmap.org/export/embed.html?bbox=121.0715%2C13.7815%2C121.0775%2C13.7865&layer=mapnik&marker=13.7840%2C121.0745"
               loading="lazy">
             </iframe>
           </div>
-
         </section>
-
       </main>
 
       <footer>
         <p>© 2026 BATANGAS STATE UNIVERSITY, The National Engineering University All Rights Reserved.</p>
       </footer>
-
     </div>
 
   </div>
