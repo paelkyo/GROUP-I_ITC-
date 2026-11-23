@@ -78,6 +78,34 @@ body {
   }
 }
 
+/* Right-to-left video clip reveal (from 100% right edge to 0% left edge) */
+@keyframes videoRevealRightToLeft {
+  0% {
+    clip-path: inset(0 0 0 100%);
+  }
+  100% {
+    clip-path: inset(0 0 0 0%);
+  }
+}
+
+/* White wipe line moving from right (100%) to left (0%) */
+@keyframes wipeLineRightToLeft {
+  0% {
+    left: 100%;
+    opacity: 0.2;
+  }
+  12% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 0%;
+    opacity: 0;
+  }
+}
+
 @keyframes emberFloat {
   0% {
     transform: translateY(18vh) translateX(0) scale(0.5);
@@ -298,12 +326,75 @@ body.dark .moon { display: none; }
   justify-content: center;
   color: white;
   overflow: hidden;
+}
 
+/* Home & Contact keep campus.png */
+.photo-hero {
   background:
     linear-gradient(to right, var(--shade), transparent),
-    url("campus.jpg");
+    url("campus.png");
   background-size: cover;
   background-position: center calc(50% + var(--hero-shift));
+}
+
+/* Academics hero starts with campus.png, then reveals video_1.mp4 right-to-left */
+.video-hero {
+  background: #1b0909;
+}
+
+.hero-still {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("campus.png") center calc(50% + var(--hero-shift)) / cover no-repeat;
+}
+
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: inset(0 0 0 100%);
+  transform: translateY(calc(var(--hero-shift) * 0.45));
+}
+
+.hero-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-hero.wipe-active .hero-video-wrap {
+  animation: videoRevealRightToLeft 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* White sweeping line moving right -> left */
+.wipe-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: 4px;
+  background: #ffffff;
+  box-shadow:
+    0 0 14px #ffffff,
+    0 0 28px rgba(242, 192, 77, 0.95),
+    -12px 0 24px rgba(255, 255, 255, 0.45);
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-hero.wipe-active .wipe-line {
+  animation: wipeLineRightToLeft 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to right, var(--shade), rgba(0, 0, 0, 0.25));
+  pointer-events: none;
 }
 
 /* Rising gold embers */
@@ -311,7 +402,7 @@ body.dark .moon { display: none; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
 }
 
 .embers span {
@@ -334,9 +425,9 @@ body.dark .moon { display: none; }
 .embers span:nth-child(7) { left: 84%; width: 5px; height: 5px; animation-delay: 5s; animation-duration: 8.8s; }
 .embers span:nth-child(8) { left: 92%; width: 4px; height: 4px; animation-delay: 3.7s; animation-duration: 9.4s; }
 
-.hero > *:not(.embers) {
+.hero > *:not(.embers):not(.hero-still):not(.hero-video-wrap):not(.wipe-line):not(.hero-scrim) {
   position: relative;
-  z-index: 2;
+  z-index: 4;
 }
 
 .page.show .hero h3 {
@@ -351,7 +442,8 @@ body.dark .moon { display: none; }
   animation: heroRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both;
 }
 
-.page.show .hero > a {
+.page.show .hero > a,
+.page.show .hero .hero-actions {
   animation: heroRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both;
 }
 
@@ -370,6 +462,13 @@ body.dark .moon { display: none; }
   font-style: italic;
   font-size: 22px;
   margin: 10px 0 25px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
 }
 
 .hero a {
@@ -416,13 +515,40 @@ body.dark .moon { display: none; }
   transform: translateY(0) scale(0.96);
 }
 
+.replay-wipe-btn {
+  padding: 11px 18px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.25s ease,
+              color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.replay-wipe-btn:hover {
+  background: rgba(255, 255, 255, 0.92);
+  color: #2a0a0a;
+  border-color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.replay-wipe-btn:active {
+  transform: scale(0.96);
+}
+
 .bottom-text {
   position: absolute;
   bottom: 25px;
   right: 30px;
   font-size: 19px;
   font-style: italic;
-  z-index: 2;
+  z-index: 4;
   opacity: 0.92;
 }
 
@@ -699,6 +825,9 @@ footer {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .hero-video-wrap {
+    clip-path: inset(0 0 0 0%);
   }
   .reveal-block { opacity: 1; transform: none; }
 }
