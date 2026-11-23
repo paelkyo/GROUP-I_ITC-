@@ -1,0 +1,364 @@
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.hidden-control {
+  display: none;
+}
+
+/* ===== THEME COLORS (LIGHT DEFAULT) ===== */
+.site-wrapper {
+  --bg: #fff8ee;
+  --surface: #ffffff;
+  --nav-bg: #fdf3e3;
+  --text: #2c2020;
+  --muted: #6b5353;
+  --primary: #5a1010;
+  --primary-dark: #450b0b;
+  --accent: #f2c04d;
+  --border: #e6d5bf;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+  font-family: Georgia, serif;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* DARK MODE COLORS */
+#dark-mode:checked ~ .site-wrapper {
+  --bg: #170e0f;
+  --surface: #241517;
+  --nav-bg: #1e1213;
+  --text: #f5e9dc;
+  --muted: #cbb4a0;
+  --primary: #f2c04d;
+  --primary-dark: #100809;
+  --accent: #f2c04d;
+  --border: #3d2427;
+  --shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== PAGE SWITCHING (ONLY ONE PAGE SHOWN AT A TIME) ===== */
+.page {
+  display: none;
+}
+
+#tab-home:checked ~ .site-wrapper #page-home,
+#tab-academics:checked ~ .site-wrapper #page-academics,
+#tab-contact:checked ~ .site-wrapper #page-contact {
+  display: block;
+}
+
+/* ACTIVE TAB STYLE */
+#tab-home:checked ~ .site-wrapper .nav-home,
+#tab-academics:checked ~ .site-wrapper .nav-academics,
+#tab-contact:checked ~ .site-wrapper .nav-contact {
+  background-color: var(--primary);
+  color: var(--surface);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 12px 6%;
+  background-color: var(--nav-bg);
+  border-bottom: 2px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.brand-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--primary);
+  letter-spacing: 0.3px;
+}
+
+.brand-campus {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.tabs label {
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tabs label:hover {
+  background-color: rgba(242, 192, 77, 0.22);
+}
+
+.theme-toggle {
+  padding: 7px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  min-height: 76vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+}
+
+.hero-banner {
+  min-height: 52vh;
+}
+
+.hero-content {
+  width: 100%;
+  padding: 60px 8%;
+  background: linear-gradient(90deg, rgba(42, 7, 7, 0.88) 0%, rgba(42, 7, 7, 0.45) 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.hero-small {
+  font-style: italic;
+  font-size: 20px;
+  color: #f2c04d;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  max-width: 700px;
+  margin: 6px 0;
+}
+
+.hero-sub {
+  font-style: italic;
+  font-size: 18px;
+  margin-bottom: 22px;
+  color: #f5ece0;
+}
+
+.hero-motto {
+  margin-top: 28px;
+  font-style: italic;
+  font-size: 15px;
+  color: #f8e5b4;
+}
+
+/* ===== BUTTONS ===== */
+.btn-gold {
+  display: inline-block;
+  padding: 11px 22px;
+  border-radius: 28px;
+  background-color: #f2c04d;
+  color: #240909;
+  font-family: Georgia, serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* ===== CONTENT & CARDS ===== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 45px 20px;
+}
+
+.heading-main {
+  font-size: 28px;
+  color: var(--primary);
+  margin: 28px 0 16px;
+}
+
+.box {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow);
+}
+
+.box h2 {
+  color: var(--primary);
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.mascot-box {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.mascot-img {
+  width: 190px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.campus-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 8px 0 14px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--accent);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  color: var(--primary);
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+/* ===== CONTACT FORM & MAP ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-form label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: Georgia, serif;
+  font-size: 14px;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--accent);
+}
+
+.submit-btn {
+  margin-top: 6px;
+}
+
+.map-box iframe {
+  width: 100%;
+  min-height: 310px;
+  border: 0;
+  border-radius: 8px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: var(--primary-dark);
+  color: #ffffff;
+  text-align: center;
+  padding: 18px;
+  font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+  .mascot-box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mascot-img {
+    width: 150px;
+  }
+}
